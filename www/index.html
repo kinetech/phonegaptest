@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    
+    <script src="js/jquery.min.js"></script>
+    <script src="http://10.1.1.28:8080/socket.io/socket.io.js"></script>
+
+    <title>KineTech Client App</title>
+  </head>
+  <body>
+
+    <div id="wrapper" style="display:none">
+      <div id="drawOptions">
+        <div class="colors">
+          <div class="colorBlock" data-color="#8158D9" style="background-color: #8158D9"></div>
+          <div class="colorBlock" data-color="#D958B1" style="background-color: #D958B1"></div>
+          <div class="colorBlock" data-color="#82F5E7" style="background-color: #82F5E7"></div>
+          <div class="colorBlock" data-color="#4B61F2" style="background-color: #4B61F2"></div>
+          <div class="colorBlock" data-color="#EB0C40" style="background-color: #EB0C40"></div>
+          <div class="colorBlock" data-color="#40DB2C" style="background-color: #40DB2C"></div>
+          <div class="colorBlock" data-color="#222222" style="background-color: #222222"></div>
+          <div class="colorBlock" data-color="#F6FF00" style="background-color: #F6FF00"></div>
+          <div class="colorBlock" data-color="#FF9D00" style="background-color: #FF9D00"></div>
+
+        </div>
+
+        <form>
+          <input type="range" name="brushSize" id="brushSize" value="5" min="1" max="10">
+        </form>
+      </div>
+
+    <div id="modelMask" style="display:none"></div>
+    <div id="modelWindow" style="display:none">
+      <h1>
+      <p>
+      <button class="closeMsg">Close</button>
+    </div>
+
+    <script src="js/client.js"></script>
+    <script src="js/index.js"></script>
+    <script src="phonegap.js"></script>
+    <script>
+    
+      $(document).ready(function() {
+     
+      });
+
+    </script>
+  </body>
+</html>
