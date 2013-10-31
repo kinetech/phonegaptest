@@ -1,6 +1,6 @@
 // client.js
 
-var server = io.connect('/client');
+var server = io.connect('10.1.1.28:8080/client');
 var brushSettings = {
   brushSize: 5,
   color: "#000000"
@@ -8,7 +8,6 @@ var brushSettings = {
 
 server.on('welcome', function(data){
   brushSettings.id = data.id;
-  console.log(data.message);
 });
 
 server.on('changeColor', function(data){
