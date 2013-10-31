@@ -18,25 +18,52 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <title>KineTech Client App</title>
+  </head>
+  <body>
+    <div class="app">
+      <h1>PhoneGap</h1>
+      <div id="deviceready" class="blink">
+        <p class="event listening">Connecting to Device</p>
+        <p class="event received">Device is Ready</p>
+      </div>
+    </div>
+    <div id="#wrapper" style="display:none">
+      <div id="drawOptions">
+        <div class="colors">
+          <div class="colorBlock" data-color="#8158D9" style="background-color: #8158D9"></div>
+          <div class="colorBlock" data-color="#D958B1" style="background-color: #D958B1"></div>
+          <div class="colorBlock" data-color="#82F5E7" style="background-color: #82F5E7"></div>
+          <div class="colorBlock" data-color="#4B61F2" style="background-color: #4B61F2"></div>
+          <div class="colorBlock" data-color="#EB0C40" style="background-color: #EB0C40"></div>
+          <div class="colorBlock" data-color="#40DB2C" style="background-color: #40DB2C"></div>
         </div>
-        <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+
+        <form>
+          <input type="range" name="brushSize" id="brushSize" value="5" min="1" max="10">
+        </form>
+      </div>
+
+
+    
+    </div id="modelMask" style="display:none">
+    </div id="modelWindow" style="display:none">
+      <h1>
+      <p>
+      <button class="closeMsg">Close</button>
+
+
+    <script src="phonegap.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/client.js"></script>
+    <script>
+      app.initialize();
+    </script>
+  </body>
 </html>
