@@ -3,7 +3,7 @@ var brushSettings = {
   brushSize: 5,
   color: "#000000"
 };
-var server = io.connect('http://10.1.1.28:8080/client');
+var server = io.connect('http://169.254.37.109:8080/client');
 
 server.on('welcome', function(data){
     brushSettings.id = data.id;
@@ -21,6 +21,7 @@ server.on('randomColor', function(data){
 });
        
 server.on('switchPainting', function(data){
+  console.log(data.paint);
   data.paint ? initMotionListener() : removeMotionListener();
 });
 
@@ -36,26 +37,15 @@ $('.colorBlock').on('touchstart', function(e) {
 
 var initMotionListener = function() {
   $('#wrapper').show();
-  
-  window.addEventListener('devicemotion', function(event) {
-    var aX = Math.floor(event.acceleration.x);
-    var aY = Math.floor(event.acceleration.y);
-    var aZ = Math.floor(event.acceleration.z);
-    server.emit('paint',{
-        aX: aX,
-        aY: aY,
-        aZ: aZ,
-        color: brushSettings.color,
-        brushSize: brushSettings.brushSize,
-        brushId: brushSettings.id
-    });
-    }, false);
+  window.addEventListener('devicemotion', getDeviceMotion, true);
 };
 
 var removeMotionListener = function() {
   $('#wrapper').hide();
-  
-  window.removeEventListener('devicemotion', function(event) {
+  window.removeEventListener('devicemotion', getDeviceMotion, true);
+};
+
+var getDeviceMotion = function(event) {
     var aX = Math.floor(event.acceleration.x);
     var aY = Math.floor(event.acceleration.y);
     var aZ = Math.floor(event.acceleration.z);
@@ -67,5 +57,4 @@ var removeMotionListener = function() {
         brushSize: brushSettings.brushSize,
         brushId: brushSettings.id
     });
-    }, false);
 };
