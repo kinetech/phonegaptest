@@ -1,7 +1,7 @@
 // serverConnection.js
 
 var server = {
-  serverIP: 'http://169.254.217.221:8080/client'
+  serverIP: 'http://10.1.1.28:8080/client'
 };
 
 server.makeConnection = function() {
