@@ -83,6 +83,13 @@ module.exports = [
         "merges": [
             "navigator.notification"
         ]
+    },
+    {
+        "file": "plugins/com.ququplay.websocket.WebSocket/www/phonegap-websocket.js",
+        "id": "com.ququplay.websocket.WebSocket.websocket",
+        "clobbers": [
+            "WebSocket"
+        ]
     }
 ]
 });

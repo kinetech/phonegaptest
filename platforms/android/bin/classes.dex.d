@@ -6,6 +6,13 @@
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/KineTech/clientApp/R$string.class \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/KineTech/clientApp/R$xml.class \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/KineTech/clientApp/R.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/ququplay/websocket/CordovaClient.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/ququplay/websocket/InsecureX509TrustManager.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/ququplay/websocket/Utils.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/ququplay/websocket/WebSocket$1.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/ququplay/websocket/WebSocket$2.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/ququplay/websocket/WebSocket$3.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/com/ququplay/websocket/WebSocket.class \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/org/apache/cordova/devicemotion/AccelListener$1.class \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/org/apache/cordova/devicemotion/AccelListener.class \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/org/apache/cordova/deviceorientation/CompassListener$1.class \
@@ -34,4 +41,5 @@
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/org/apache/cordova/geolocation/GPSListener.class \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/org/apache/cordova/geolocation/NetworkListener.class \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/classes/org/apache/cordova/vibration/Vibration.class \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/dexedLibs/java_websocket-5c514ede33fcfb26ae36c82be904fdfe.jar \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/bin/dexedLibs/cordova-3.1.0-63b602a76ef27b17cc3dcf84176fc93d.jar \

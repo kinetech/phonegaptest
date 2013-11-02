@@ -31,11 +31,14 @@
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/js/jquery.min.js \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/js/serverConnection.js \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/js/utils.js \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/com.ququplay.websocket.WebSocket \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.device-motion \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.device-orientation \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.geolocation \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.vibration \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/com.ququplay.websocket.WebSocket/www \
+/Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/com.ququplay.websocket.WebSocket/www/phonegap-websocket.js \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.device-motion/www \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.device-motion/www/Acceleration.js \
 /Users/DrHall/Desktop/KineTech/clientApp/platforms/android/assets/www/plugins/org.apache.cordova.device-motion/www/accelerometer.js \
