@@ -7,11 +7,12 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     
     <script src="js/jquery.min.js"></script>
-    <script src="http://169.254.37.109:8080/socket.io/socket.io.js"></script>
+    <script src="http://169.254.233.40:8080/socket.io/socket.io.js"></script>
 
     <title>KineTech Client App</title>
   </head>
   <body>
+    <div id="idle"></div>
 
     <div id="wrapper" style="display:none">
       <div id="drawOptions">
@@ -40,15 +41,12 @@
       <button class="closeMsg">Close</button>
     </div>
 
+    <script src="js/utils.js"></script>
     <script src="js/client.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/serverConnection.js"></script>
     <script src="phonegap.js"></script>
     <script>
-    
-      $(document).ready(function() {
-     
-      });
-
+      client.initialize();
     </script>
   </body>
 </html>

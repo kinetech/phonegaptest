@@ -1,60 +1,57 @@
 // client.js
-var brushSettings = {
-  brushSize: 5,
-  color: "#000000"
+
+var client = {};
+
+client.initialize = function() {
+  document.addEventListener('deviceready', function(e) {
+    client.initializeClientDevice();
+    server.makeConnection();
+    client.showAlert('Welcome!', 'You are connected and ready for the show!');
+  }, false);
 };
-var server = io.connect('http://169.254.37.109:8080/client');
 
-server.on('welcome', function(data){
-    brushSettings.id = data.id;
-});
+client.showAlert = function (title, message) {
+  navigator.notification.alert(message, null, title, "OK!");
+};
 
-server.on('changeColor', function(data){
-  $('body').css({'background-color': data.color});
-});
-
-server.on('randomColor', function(data){
-  var i = Math.floor(Math.random() * 10);
-  var color = data.color[i];
-  $('body').css({'background-color': color});
-  $('#modelWindow button').on('click touchend', closeModelMessage, false);
-});
-       
-server.on('switchPainting', function(data){
-  console.log(data.paint);
-  data.paint ? initMotionListener() : removeMotionListener();
-});
+client.initializeClientDevice = function() {
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      client.position = {latitude: position.coords.latitude, longitude: position.coords.longitude };
+    }
+  );
+  client.brushSize = 5;
+  client.color = "#000000";
+};
 
 
-$('#brushSize').on('touchend', function(e){
-  brushSettings.brushSize = this.value;
-});
-
-$('.colorBlock').on('touchstart', function(e) {
-  var color = $(this).data('color');
-  brushSettings.color = color;
-});
-
-var initMotionListener = function() {
+client.initMotionListener = function() {
   $('#wrapper').show();
-  window.addEventListener('devicemotion', getDeviceMotion, true);
+
+  $('#brushSize').on('touchend', utils.setBrushSize);
+  $('.colorBlock').on('touchstart', utils.setColor);
+
+  var delay = { frequency: 50 };
+  client.watchID = navigator.accelerometer.watchAcceleration(onDeviceMotion, null, delay);
 };
 
-var removeMotionListener = function() {
+client.removeMotionListener = function() {
   $('#wrapper').hide();
-  window.removeEventListener('devicemotion', getDeviceMotion, true);
+
+  $('#brushSize').off('touchend', utils.setBrushSize);
+  $('.colorBlock').off('touchstart', utils.setColor);
+
+  navigator.accelerometer.clearWatch(client.watchID);
+  client.watchID = null;
 };
 
-var getDeviceMotion = function(event) {
-    var aX = Math.floor(event.acceleration.x);
-    var aY = Math.floor(event.acceleration.y);
-    var aZ = Math.floor(event.acceleration.z);
+var onDeviceMotion = function(acceleration) {
     server.emit('paint',{
-        aX: aX,
-        aY: aY,
-        aZ: aZ,
-        color: brushSettings.color,
-        brushSize: brushSettings.brushSize,
-        brushId: brushSettings.id
+        aX: acceleration.x,
+        aY: acceleration.y,
+        aZ: acceleration.z,
+        color: client.color,
+        brushSize: client.brushSize,
+        brushId: client.id
     });
 };
