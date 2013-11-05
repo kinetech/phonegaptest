@@ -70,10 +70,11 @@ ClientApp.ShowView = Backbone.View.extend({
       alpha: alpha,
       beta: beta,
       gamma: gamma,
-      color: state.color,
-      brushSize: state.brushSize,
-      brushId: state.id
+      color: this.model.get('color'),
+      brushSize: this.model.get('brushSize'),
+      brushId: this.model.get('brushId')
     };
+    console.log(data.brushId);
     this.server.emit('gyro', data);
   },
 

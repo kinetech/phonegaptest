@@ -33,7 +33,6 @@ window.Server = Backbone.Model.extend({
   },
 
   emit: function(event, data) {
-    console.log(data);
     this.connection.emit(event, data);
   }
 
