@@ -9,7 +9,8 @@ ClientApp.Router = Backbone.Router.extend({
     "": "index",
     "showCastList": "showCastList",
     "showUpcomingShows": "showUpcomingShows",
-    "show": "startShow"
+    "show": "startShow",
+    "controller": "startController"
   },
   
   swapView: function(view) {
@@ -45,6 +46,16 @@ ClientApp.Router = Backbone.Router.extend({
       var server = new Server({ ip: ip });
       var showView = new ClientApp.ShowView({ model: that.model, server: server });
       that.swapView(showView);
+    });
+  },
+
+  startController: function() {
+    console.log('start controller');
+    var that = this;
+    var ip = this.model.get('ip');
+    this.$el.fadeOut(1000, function() {
+      var controlServer = new ControlServer({ ip: ip });
+      var controlView = new ClientApp.ControlView({ server: controlServer });
     });
   }
 

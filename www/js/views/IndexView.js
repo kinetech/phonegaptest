@@ -34,22 +34,58 @@ ClientApp.IndexView = Backbone.View.extend({
   },
 
 
-  connect: function(results, clientModel, context) {
+  connect: function(results, clientModel, ctx) {
+    if(results.buttonIndex  === 1) {
+      var ip = results.input1;
+      if (ip === 'controller') {
+        ctx.getController(clientModel, ctx);
+      } else {
+        var socketScriptURL = "http://" + ip + ":8080/socket.io/socket.io.js";
+        $.getScript(socketScriptURL)
+          .done(function(script, textStatus) {
+            $('#spinner').hide();
+            clientModel.startShow(ip);
+          })
+          .fail(function(jqxhr, settings, exception) {
+            ctx.showAlert('Error', 'Please try again.');
+          });
+        // TODO: Give user an out.
+        $('#spinner').show();
+      }
+    }
+
+  },
+
+  getController: function(clientModel, ctx) {
+    if (navigator.notification) {
+      navigator.notification.prompt(
+        'Enter the provided IP',
+        function(results) { ctx.connectAsController(results, clientModel, ctx); },
+        'Connect as controller',
+        ['Ok','Exit']
+      );
+    } else {
+      var ip = prompt('Enter IP:');
+      ctx.connectAsController(results, clientModel, ctx);
+    }
+  },
+
+  connectAsController: function(results, clientModel, ctx) {
     if(results.buttonIndex  === 1) {
       var ip = results.input1;
       var socketScriptURL = "http://" + ip + ":8080/socket.io/socket.io.js";
       $.getScript(socketScriptURL)
         .done(function(script, textStatus) {
+          console.log('script accepted');
           $('#spinner').hide();
-          clientModel.startShow(ip);
+          clientModel.startController(ip);
         })
         .fail(function(jqxhr, settings, exception) {
-          context.showAlert('Error', 'Please try again.');
+          ctx.showAlert('Error', 'Please try again.');
         });
       // TODO: Give user an out.
       $('#spinner').show();
     }
-
   },
 
   showCastList: function() {

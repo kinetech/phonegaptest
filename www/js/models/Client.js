@@ -25,6 +25,12 @@ window.Client = Backbone.Model.extend({
 
    loadIndex: function() {
     this.trigger('loadIndex', this);
+   },
+
+   startController: function(ip) {
+     console.log('sending trigger');
+     this.set('ip', ip);
+     this.trigger('startController', this);
    }
 
 });

@@ -14,6 +14,7 @@ window.ClientApp = Backbone.View.extend({
     this.model.on('shows', this.showUpcomingShows, this);
     this.model.on('castList', this.showCastList, this);
     this.model.on('startShow', this.startShow, this);
+    this.model.on('startController', this.startController, this);
     this.model.on('loadIndex', this.loadIndex, this);
     this.model.on('sendMessage', this.showAlert, this);
   },
@@ -30,6 +31,11 @@ window.ClientApp = Backbone.View.extend({
 
   startShow: function() {
     this.router.navigate("/show", {trigger: true} );
+  },
+
+  startController: function() {
+    console.log('routing controller');
+    this.router.navigate("/controller", { trigger: true });
   },
 
   loadIndex: function() {
