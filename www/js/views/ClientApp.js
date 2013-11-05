@@ -5,13 +5,17 @@ window.ClientApp = Backbone.View.extend({
   initialize: function() {
 
     this.template = this.model.get('templates')['clientApp'];
+    this.initializeClientDevice();
 
-    $('body').append(this.render().el);
+    $('body').prepend(this.render().el);
     this.router = new ClientApp.Router({ el: this.$el.find('#container'), model: this.model });
 //    this.router.on('route', this.updateNav, this);
     Backbone.history.start({pushstate:true});
     this.model.on('shows', this.showUpcomingShows, this);
     this.model.on('castList', this.showCastList, this);
+    this.model.on('startShow', this.startShow, this);
+    this.model.on('loadIndex', this.loadIndex, this);
+    this.model.on('sendMessage', this.showAlert, this);
   },
 
   render: function(){
@@ -19,8 +23,21 @@ window.ClientApp = Backbone.View.extend({
     return this;
   },
 
+  initializeClientDevice: function() {
+    this.model.set('brushSize', 5);
+    this.model.set('color',  "#000000");
+  },
+
+  startShow: function() {
+    this.router.navigate("/show", {trigger: true} );
+  },
+
+  loadIndex: function() {
+    this.router.navigate("/", {trigger: true} );
+  },
+
   showCastList: function() {
-    this.router.navigate("/showCastList", { trigger: true });
+    this.router.navigate("/showCastList", { trigger: true } );
   },
 
   showUpcomingShows: function() {
@@ -28,7 +45,8 @@ window.ClientApp = Backbone.View.extend({
   },
 
   showAlert: function (title, message) {
-   // navigator.notification.alert(message, null, title, "OK!");
+    console.log('show alert called');
+    navigator.notification.alert(message, null, title, "OK!");
   }
 
 });

@@ -1,57 +1,51 @@
 window.ClientApp = Backbone.View.extend({
   
-  events: {
-    "touchstart .ip":  "getClientIP",
-    "touchstart .cast":  "showCastList",
-    "touchstart .shows":  "showUpcomingShows"
-  },
+  className: "mainPage",
 
   initialize: function() {
-    $('body').append(this.render().el);
-//    this.router = new Shortly.Router({ el: this.$el.find('#container') });
-    // this.router.on('navigate', this.updateNav, this);
-    // use this to to triggers on routing
-  //  Backbone.history.start({pushstate:true});
+
+    this.template = this.model.get('templates')['clientApp'];
+    this.initializeClientDevice();
+
+    $('body').prepend(this.render().el);
+    this.router = new ClientApp.Router({ el: this.$el.find('#container'), model: this.model });
+//    this.router.on('route', this.updateNav, this);
+    Backbone.history.start({pushstate:true});
+    this.model.on('shows', this.showUpcomingShows, this);
+    this.model.on('castList', this.showCastList, this);
+    this.model.on('startShow', this.startShow, this);
+    this.model.on('loadIndex', this.loadIndex, this);
+    this.model.on('sendMessage', this.showAlert, this);
   },
 
   render: function(){
-    var source = $("#clientAppView-template").html();
-    var template = Handlebars.compile(source);
-    var html = template( { show: 'Name of show' } );
-    this.$el.html(html);
+    this.$el.html( this.template() );
     return this;
   },
 
-  getClientIP: function() {
-    var that = this;
-    navigator.notification.prompt(
-      'Enter the provided IP',
-      that.connect,
-      'Connect to the show',
-      ['Ok','Exit']
-    );
+  initializeClientDevice: function() {
+    this.model.set('brushSize', 5);
+    this.model.set('color',  "#000000");
   },
 
-  connect: function(results) {
-    alert(results.input1);
-    // make a new show instance
-    // send it IP to make URL
-    // render a show to device  
+  startShow: function() {
+    this.router.navigate("/show", {trigger: true} );
+  },
+
+  loadIndex: function() {
+    this.router.navigate("/", {trigger: true} );
   },
 
   showCastList: function() {
-    this.showAlert('TODO', "Set up remote point to serve cast list via AJAX");
-    // route to cast page
-    //this.router.navigate("/showCastList");
+    this.router.navigate("/showCastList", { trigger: true } );
   },
 
   showUpcomingShows: function() {
-    this.showAlert('TODO', "Set up remote point to serve show info via AJAX");
-    // route to upcoming show page
-    //this.router.navigate("/showUpcomingShows");
+    this.router.navigate("/showUpcomingShows", { trigger: true });
   },
 
   showAlert: function (title, message) {
+    console.log('show alert called');
     navigator.notification.alert(message, null, title, "OK!");
   }
 
