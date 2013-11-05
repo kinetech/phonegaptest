@@ -93,7 +93,7 @@ module.exports = {
         var _message = (message || "Prompt message");
         var _title = (title || "Prompt");
         var _buttonLabels = (buttonLabels || ["OK","Cancel"]);
-        var _defaultText = (defaultText || "Default text");
+        var _defaultText = (defaultText || "");
         exec(resultCallback, null, "Notification", "prompt", [_message, _title, _buttonLabels, _defaultText]);
     },
 

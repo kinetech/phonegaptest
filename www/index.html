@@ -5,50 +5,117 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    
-    <script src="js/jquery.min.js"></script>
-    <script src="http://10.1.1.28:8080/socket.io/socket.io.js"></script>
-    <script>
-    </script>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/jquery.color.min.js"></script>
+    <script src="js/lib/underscore.min.js"></script>
+    <script src="js/lib/backbone.min.js"></script>
+    <script src="js/lib/handlebars.js"></script>
 
     <title>KineTech Client App</title>
   </head>
   <body>
-     <div id="idle"></div>
-
-    <div id="wrapper" style="display:none">
-      <div id="drawOptions">
-        <div class="colors">
-          <div class="colorBlock" data-color="#8158D9" style="background-color: #8158D9"></div>
-          <div class="colorBlock" data-color="#D958B1" style="background-color: #D958B1"></div>
-          <div class="colorBlock" data-color="#82F5E7" style="background-color: #82F5E7"></div>
-          <div class="colorBlock" data-color="#4B61F2" style="background-color: #4B61F2"></div>
-          <div class="colorBlock" data-color="#EB0C40" style="background-color: #EB0C40"></div>
-          <div class="colorBlock" data-color="#40DB2C" style="background-color: #40DB2C"></div>
-          <div class="colorBlock" data-color="#222222" style="background-color: #222222"></div>
-          <div class="colorBlock" data-color="#F6FF00" style="background-color: #F6FF00"></div>
-          <div class="colorBlock" data-color="#FF9D00" style="background-color: #FF9D00"></div>
-
-        </div>
-
-        <form>
-          <input type="range" name="brushSize" id="brushSize" value="5" min="1" max="10">
-        </form>
-      </div>
-
-    <div id="modelMask" style="display:none"></div>
-    <div id="modelWindow" style="display:none">
-      <h1>
-      <p>
-      <button class="closeMsg">Close</button>
-    </div> 
-
-    <script src="js/utils.js"></script>
-    <script src="js/client.js"></script>
-    <script src="js/serverConnection.js"></script>
-    <script src="phonegap.js"></script>
-    <script>
-      client.initialize();
+    <script id="clientApp" type="text/x-handlebars-template">
+      <div id="container"></div>
     </script>
+
+    <script id="index" type="text/x-handlebars-template">
+      <header>
+        Welcome to {{ currentShow }}
+      </header>
+      <button class="ip">
+        Enter IP address to connect for show.
+      </button>
+      <button class="cast">
+        Learn about tonights performers.
+      </button>
+      <button class="shows">
+        See information about upcoming shows.
+      </button>
+      <div id="spinner" style="display:none">
+        <img src="img/spiffygif_46x46.gif" />
+      </div>
+    </script>
+
+    <script id="castList" type="text/x-handlebars-template">
+      <header>
+        {{ currentShow }} cast and crew:
+      </header>
+      <p>Person: Job</p>
+      <p>WOOOOOOOOOORDSSSSSSS</p>
+      <p>Person: Job</p>
+      <p>WOOOOOOOOOORDSSSSSSS</p>
+      <p>Person: Job</p>
+      <p>WOOOOOOOOOORDSSSSSSS</p>
+      <p>Person: Job</p>
+      <p>WOOOOOOOOOORDSSSSSSS</p>
+      <p>Person: Job</p>
+      <p>WOOOOOOOOOORDSSSSSSS</p>
+
+      <button class="back">
+        Back
+      </button>
+    </script>
+
+    <script id="showsList" type="text/x-handlebars-template">
+      <ul>
+        <li>{{ upcomingShows.one }}</li>
+        <li>{{ upcomingShows.two }}</li>
+        <li>{{ upcomingShows.three }}</li>
+      </ul> 
+      <button class="back">
+        Back
+      </button>
+    </script>
+    
+    <script id="controller" type="text/x-handlebars-template">
+      // FILL ME IN
+    </script>
+
+    <script id="show" type="text/x-handlebars-template">
+      <div class="controls" style="display:none">
+        <div id="drawOptions">
+          <div class="colors">
+            <div class="colorBlock" data-color="#8158D9" style="background-color: #8158D9"></div>
+            <div class="colorBlock" data-color="#D958B1" style="background-color: #D958B1"></div>
+            <div class="colorBlock" data-color="#82F5E7" style="background-color: #82F5E7"></div>
+            <div class="colorBlock" data-color="#4B61F2" style="background-color: #4B61F2"></div>
+            <div class="colorBlock" data-color="#EB0C40" style="background-color: #EB0C40"></div>
+            <div class="colorBlock" data-color="#40DB2C" style="background-color: #40DB2C"></div>
+          </div>
+          <form>
+            <input type="range" name="brushSize" id="brushSize" value="5" min="1" max="10">
+          </form>
+        </div>
+      </div>
+    </script>
+  <script src="phonegap.js"></script>
+
+  <script src="js/models/Client.js"></script>
+  <script src="js/models/Server.js"></script>
+  <script src="js/models/ControlServer.js"></script>
+
+  <script src="js/views/ClientApp.js"></script>
+  <script src="js/views/IndexView.js"></script>
+  <script src="js/views/CastView.js"></script>
+  <script src="js/views/ShowsView.js"></script>
+  <script src="js/views/ShowView.js"></script>
+  <script src="js/views/ControlView.js"></script>
+
+  <script src="js/router/router.js"></script>
+  
+  <script>
+    document.addEventListener('deviceready', function(e) {
+      var client = new Client();
+
+      var kineTemplates = {};
+      $("[type='text/x-handlebars-template']").each(function(index, div){
+          kineTemplates[div.id] = Handlebars.compile(div.innerHTML);
+      });
+      client.set('templates', kineTemplates);
+
+      var clientApp = new ClientApp({ model: client });
+    });
+  </script>
+
   </body>
 </html>
