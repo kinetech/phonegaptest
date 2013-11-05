@@ -52,7 +52,6 @@ ClientApp.ShowView = Backbone.View.extend({
     this.$el.find('.controls').fadeIn(500);
     var that = this;
     var delay = { frequency: 50 };
-//    this.onDeviceMotion(10, this.server);
     this.watchID = navigator.accelerometer.watchAcceleration(
       function(acc) {
         that.onDeviceMotion(acc, that.server, that.model);

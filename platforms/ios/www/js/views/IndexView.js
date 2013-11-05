@@ -23,32 +23,27 @@ ClientApp.IndexView = Backbone.View.extend({
       var that = this;
       navigator.notification.prompt(
         'Enter the provided IP',
-        function(results) { that.connect(results.input1, that.model, that); },
+        function(results) { that.connect(results, that.model, that); },
         'Connect to the show',
         ['Ok','Exit']
       );
     } else {
-      var ip = prompt('wfkjdfkjsdf');
+      var ip = prompt('Enter IP:');
       this.connect(ip, this.model, this);
     }
   },
 
 
-  connect: function(ip, clientModel, context) {
-    var socketScriptURL = "http://" + ip + ":8080/socket.io/socket.io.js";
-    $.getScript(socketScriptURL)
-      .done(function(script, textStatus) {
-        console.log('Script aquired');
-        $('#spinner').hide();
-        clientModel.startShow(ip);
-      })
-      .fail(function(jqxhr, settings, exception) {
-        console.log('Failed');
-        context.showAlert('Error', 'Please try again.');
-        context.getClientIP();
-      });
-    $('#spinner').show();
-
+  connect: function(results, clientModel, context) {
+    if(results.buttonIndex  === 1) {
+      var ip = results.input1;
+      var socketScriptURL = "http://" + ip + ":8080/socket.io/socket.io.js";
+      $.getScript(socketScriptURL)
+        .done(function(script, textStatus) {
+          clientModel.startShow(ip);
+        });
+      context.showAlert('Loading', 'show is loading');
+    }
   },
 
   showCastList: function() {
@@ -60,7 +55,7 @@ ClientApp.IndexView = Backbone.View.extend({
   },
 
   showAlert: function(title, message) {
-    navigator.notification.alert(message, null, title, "OK!");
+    navigator.notification.alert(message, null, title, "OK");
   },
 
 });
