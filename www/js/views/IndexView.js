@@ -29,17 +29,18 @@ ClientApp.IndexView = Backbone.View.extend({
       );
     } else {
       var ip = prompt('Enter IP:');
-      this.connect(ip, this.model, this);
+      this.connect({buttonIndex: 1, input1: ip}, this.model, this);
     }
   },
 
 
   connect: function(results, clientModel, ctx) {
-    if(results.buttonIndex  === 1) {
+    if(results.buttonIndex === 1) {
       var ip = results.input1;
       if (ip === 'controller') {
         ctx.getController(clientModel, ctx);
       } else {
+        $('#spinner').show();
         var socketScriptURL = "http://" + ip + ":8080/socket.io/socket.io.js";
         $.getScript(socketScriptURL)
           .done(function(script, textStatus) {
@@ -47,10 +48,10 @@ ClientApp.IndexView = Backbone.View.extend({
             clientModel.startShow(ip);
           })
           .fail(function(jqxhr, settings, exception) {
+            $('#spinner').hide();
             ctx.showAlert('Error', 'Please try again.');
           });
         // TODO: Give user an out.
-        $('#spinner').show();
       }
     }
 

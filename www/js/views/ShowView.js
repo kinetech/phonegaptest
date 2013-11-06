@@ -3,8 +3,9 @@ ClientApp.ShowView = Backbone.View.extend({
   className: "showWrapper",
 
   events: {
-    'click #brushSize' : 'setBrushSize',
-    'click .colorBlock': 'setColor'
+    'touchend #exitShow': 'exitShow',
+    'touchstart #brushSize' : 'setBrushSize',
+    'touchstart .colorBlock': 'setColor'
   },
 
   initialize: function(params) {
@@ -18,6 +19,7 @@ ClientApp.ShowView = Backbone.View.extend({
     this.server.on('removeMotionListener', this.removeMotionListener.bind(this));
     this.server.on('setID', this.setClientID.bind(this));
     this.showAlert('Welcome!', 'Get ready for the show!');
+    this.emitGyro = this.emitGyro.bind(this); // bind for context
   },
 
   render: function() {
@@ -46,11 +48,12 @@ ClientApp.ShowView = Backbone.View.extend({
   },
 
   initMotionListener: function() {
+    console.log('init');
    this.$el.animate({
       backgroundColor: '#000000'
     }, 1000);
     this.$el.find('.controls').fadeIn(500);
-    window.addEventListener('deviceorientation', this.emitGyro.bind(this), false);
+    window.addEventListener('deviceorientation', this.emitGyro);
     var that = this;
     var delay = { frequency: 50 };
     this.watchID = navigator.accelerometer.watchAcceleration(
@@ -63,6 +66,7 @@ ClientApp.ShowView = Backbone.View.extend({
   },
 
   emitGyro: function(event){
+    //console.log(event.type);
     var alpha = Math.round(event.alpha);
     var beta = Math.round(event.beta);
     var gamma = Math.round(event.gamma);
@@ -74,17 +78,17 @@ ClientApp.ShowView = Backbone.View.extend({
       brushSize: this.model.get('brushSize'),
       brushId: this.model.get('brushId')
     };
-    console.log(data.brushId);
     this.server.emit('gyro', data);
   },
 
   removeMotionListener: function() {
+    console.log('remove');
     var that = this;
     this.$el.find('.controls').fadeOut(500);
     this.$el.animate({
       backgroundColor: that.currentColor
     }, 1000);
-    window.removeEventListener('deviceorientation', this.emitGyro.bind(this), false);
+    window.removeEventListener('deviceorientation', this.emitGyro);
     navigator.accelerometer.clearWatch(this.watchID);
     this.watchID = null;
   },
@@ -106,6 +110,10 @@ ClientApp.ShowView = Backbone.View.extend({
 
   setColor: function(event) {
     this.model.set('color', event.target.dataset.color);
+  },
+
+  exitShow: function(event) {
+    this.model.loadIndex();
   }
 
 });
